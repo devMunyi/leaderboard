@@ -7,6 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
+    publicPath: '/leaderboard/',
   },
   devServer: {
     static: './dist',
