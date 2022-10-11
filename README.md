@@ -10,7 +10,7 @@
 - JavaScript
 - Webpack
 
-## [Live demo](https://devmunyi.github.io/todo-list/)
+## [Live demo](https://devmunyi.github.io/leaderboard/)
 
 
 ## Getting Started
