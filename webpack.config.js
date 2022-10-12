@@ -10,6 +10,7 @@ module.exports = {
     publicPath: '/leaderboard/',
   },
   devServer: {
+    watchFiles: ['src/*.html'],
     static: './dist',
     hot: false, // optional, but you must not set both hot and liveReload to true
     liveReload: true, // allow  browser automatic refresh on file changes
