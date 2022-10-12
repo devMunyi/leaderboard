@@ -145,7 +145,47 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ \"./node_modules/bootstrap/dist/css/bootstrap.min.css\");\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\n\n\n//# sourceURL=webpack://leaderboard/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ \"./node_modules/bootstrap/dist/css/bootstrap.min.css\");\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_addScore_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/addScore.js */ \"./src/modules/addScore.js\");\n/* harmony import */ var _modules_populateScoreList_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/populateScoreList.js */ \"./src/modules/populateScoreList.js\");\n\n\n\n\n\n// listen to form submission\nconst formElement = document.getElementById('add-score-form');\nformElement.addEventListener('submit', (e) => {\n  e.preventDefault();\n\n  // get form input data\n  const userElement = document.getElementById('name-input');\n  const scoreElement = document.getElementById('score-input');\n\n  // add score\n  (0,_modules_addScore_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])({ user: userElement.value, score: scoreElement.value });\n\n  // clear input fields\n  formElement.reset();\n});\n\n// refresh list\nconst refreshBtn = document.getElementById('refresh-btn');\nrefreshBtn.addEventListener('click', _modules_populateScoreList_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"]);\n\n\n//# sourceURL=webpack://leaderboard/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/modules/addScore.js":
+/*!*********************************!*\
+  !*** ./src/modules/addScore.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _configs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./configs.js */ \"./src/modules/configs.js\");\n/* harmony import */ var _populateScoreList_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./populateScoreList.js */ \"./src/modules/populateScoreList.js\");\n\n\n\nconst addScore = async ({ user, score }) => {\n  const response = await fetch(`${_configs_js__WEBPACK_IMPORTED_MODULE_0__.API_BASE_URL}/games/${_configs_js__WEBPACK_IMPORTED_MODULE_0__.GAME_KEY}/scores`, {\n    method: 'POST',\n    body: JSON.stringify({\n      user,\n      score,\n    }),\n    headers: {\n      'Content-type': 'application/json; charset=UTF-8',\n    },\n  });\n\n  if (response.ok) {\n    // call populateScoreList to update UI\n    (0,_populateScoreList_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n  } else {\n    // handle possible error(s)\n    throw new Error(`HTTP error! status: ${response.status}`);\n  }\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addScore);\n\n\n//# sourceURL=webpack://leaderboard/./src/modules/addScore.js?");
+
+/***/ }),
+
+/***/ "./src/modules/configs.js":
+/*!********************************!*\
+  !*** ./src/modules/configs.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"API_BASE_URL\": () => (/* binding */ API_BASE_URL),\n/* harmony export */   \"GAME_KEY\": () => (/* binding */ GAME_KEY)\n/* harmony export */ });\nconst GAME_KEY = 'zhFpomeQVkghvKIzVmEP';\nconst API_BASE_URL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api';\n\n\n\n\n//# sourceURL=webpack://leaderboard/./src/modules/configs.js?");
+
+/***/ }),
+
+/***/ "./src/modules/getScoresList.js":
+/*!**************************************!*\
+  !*** ./src/modules/getScoresList.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _configs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./configs.js */ \"./src/modules/configs.js\");\n\n\nconst getScoresList = async () => {\n  const response = await fetch(`${_configs_js__WEBPACK_IMPORTED_MODULE_0__.API_BASE_URL}/games/${_configs_js__WEBPACK_IMPORTED_MODULE_0__.GAME_KEY}/scores`, {\n    method: 'GET',\n    headers: {\n      'Content-type': 'application/json; charset=UTF-8',\n    },\n  });\n\n  // for success response\n  if (response.ok) {\n    // update UI scores list\n    const { result } = await response.json();\n\n    // result score list\n    return result;\n  }\n  // handle possible error(s)\n  throw new Error(`HTTP error! status: ${response.status}`);\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getScoresList);\n\n\n//# sourceURL=webpack://leaderboard/./src/modules/getScoresList.js?");
+
+/***/ }),
+
+/***/ "./src/modules/populateScoreList.js":
+/*!******************************************!*\
+  !*** ./src/modules/populateScoreList.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _getScoresList_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getScoresList.js */ \"./src/modules/getScoresList.js\");\n\n\nconst populateScoreList = async () => {\n  const scoreList = await (0,_getScoresList_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\n\n  const scoreListElement = document.getElementById('score-list');\n  scoreListElement.innerHTML = '<i>Loading...</i>';\n\n  let row = '';\n  let count = 0;\n\n  scoreList.forEach((item) => {\n    count += 1;\n    row += `<tr>\n            <th scope=\"row\">${count}</th>\n            <td>${item.user}</td>\n            <td>${item.score}</td>\n          </tr>`;\n  });\n\n  // append to html element\n  scoreListElement.innerHTML = row;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (populateScoreList);\n\n\n//# sourceURL=webpack://leaderboard/./src/modules/populateScoreList.js?");
 
 /***/ }),
 
