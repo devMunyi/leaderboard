@@ -4,7 +4,7 @@ const populateScoreList = async () => {
   const scoreList = await getScoresList();
 
   const scoreListElement = document.getElementById('score-list');
-  scoreListElement.innerHTML = `<i>Loading...</i>`;
+  scoreListElement.innerHTML = '<i>Loading...</i>';
 
   let row = '';
   let count = 0;

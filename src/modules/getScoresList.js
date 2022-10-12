@@ -1,4 +1,5 @@
 import { API_BASE_URL, GAME_KEY } from './configs.js';
+
 const getScoresList = async () => {
   const response = await fetch(`${API_BASE_URL}/games/${GAME_KEY}/scores`, {
     method: 'GET',
@@ -14,10 +15,9 @@ const getScoresList = async () => {
 
     // result score list
     return result;
-  } else {
-    // handle possible error(s)
-    throw new Error(`HTTP error! status: ${response.status}`);
   }
+  // handle possible error(s)
+  throw new Error(`HTTP error! status: ${response.status}`);
 };
 
 export default getScoresList;
