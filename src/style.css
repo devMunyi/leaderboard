@@ -7,3 +7,8 @@
 .left-section .scores-head-wrap {
   width: 100%;
 }
+
+.table-wrapper {
+  height: calc(100vh - 245px);
+  overflow: auto;
+}
